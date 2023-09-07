@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World Clock</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center; /* Center text in the body */
+            background-color: #f4f4f4; /* Background color */
+            color: #333; /* Text color */
+        }
+        h1 {
+            margin-top: 20px; /* Add space at the top */
+        }
+        .clock {
+            text-align: center;
+            margin: 20px auto; /* Center div horizontally and add space at the top and bottom */
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff; /* Clock background color */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Box shadow for a subtle effect */
+            display: inline-block;
+        }
+        h2 {
+            font-size: 24px; /* Timezone title font size */
+            margin-bottom: 10px; /* Space between title and time */
+        }
+        p {
+            font-size: 20px; /* Time font size */
+        }
+    </style>
+</head>
+<body>
+    <h1>World Clock</h1>
+
+    <!-- Clock for New York -->
+    <div class="clock" id="new-york-clock">
+        <h2>New York</h2>
+        <p id="new-york-time"></p>
+    </div>
+
+    <!-- Clock for London -->
+    <div class="clock" id="london-clock">
+        <h2>London</h2>
+        <p id="london-time"></p>
+    </div>
+
+    <!-- Clock for Tokyo -->
+    <div class="clock" id="tokyo-clock">
+        <h2>Tokyo</h2>
+        <p id="tokyo-time"></p>
+    </div>
+
+    <script>
+        // Function to update the time for a specific clock
+        function updateClock(city, offset) {
+            const now = new Date();
+            const utc = now.getTime() + now.getTimezoneOffset() * 60000;
+            const localTime = new Date(utc + (3600000 * offset));
+            const timeString = localTime.toLocaleTimeString();
+
+            document.getElementById(city + "-time").textContent = timeString;
+        }
+
+        // Update the clocks every second
+        setInterval(function() {
+            updateClock("new-york", -5); // New York (UTC -5)
+            updateClock("london", 0);   // London (UTC +0)
+            updateClock("tokyo", 9);    // Tokyo (UTC +9)
+        }, 1000);
+    </script>
+</body>
+</html>
